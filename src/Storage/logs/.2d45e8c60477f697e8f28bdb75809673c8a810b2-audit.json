@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 60
+    },
+    "auditLog": "C:\\xampp\\htdocs\\ims\\ecomm\\src\\Storage\\logs\\.2d45e8c60477f697e8f28bdb75809673c8a810b2-audit.json",
+    "files": [
+        {
+            "date": 1747299707879,
+            "name": "C:\\xampp\\htdocs\\ims\\ecomm\\src\\Storage\\logs\\application-2025-05-15.log",
+            "hash": "f507c3f2072f5f3efadb8af39d047bb8b94179421e24049e4ba18011a19549f7"
+        }
+    ],
+    "hashType": "sha256"
+}

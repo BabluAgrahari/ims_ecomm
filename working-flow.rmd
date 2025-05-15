@@ -1,0 +1,25 @@
+Admin
+
+User
+Category
+Doctor
+Patient
+Video Config
+Medicine Config
+Time Sloat Create for doctor
+Report
+-Appoientment
+
+Doctor 
+ Profile
+ Time Slot Create
+ Booking Appoientment list
+ Create Precrepation for Patient
+Report 
+ -Booking Appoientment Report
+ 
+Patient
+ Appoientment Booking
+ Precrepation Details
+Report
+ -Appoientment Booking Report
