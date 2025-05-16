@@ -16,17 +16,17 @@ export const successRes = (res, msg, record = '') => {
 export const failedRes = (res, msg) => {
   var response = {
     status: false,
-    code: 400,
+    code: 401,
     message: msg
   };
   // return res.status(400).json(response);
-  return res.status(200).json(response);
+  return res.status(401).json(response);
 };
 
 export const notFoundRes = (res) => {
   let response = {
     status: false,
-    code: 204,
+    code: 200,
     message: 'Not Found Any Records.'
   };
   return res.status(200).json(response);
@@ -35,11 +35,10 @@ export const notFoundRes = (res) => {
 export const validationRes = (res, msg) => {
   var response = {
     status: false,
-    code: 400,
+    code: 422,
     message: msg
   };
-  // return res.status(400).json(response);
-  return res.status(200).json(response);
+  return res.status(422).json(response);
 };
 
 
@@ -57,8 +56,7 @@ export const serverError = (res, msg = null) => {
     code: 500,
     message: msg
   };
-  // return res.status(500).json(response);
-  return res.status(200).json(response);
+  return res.status(500).json(response);
 }
 
 export const recordsRes = (res, records, pagination = null) => {

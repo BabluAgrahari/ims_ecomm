@@ -1,0 +1,10 @@
+2025-05-16T04:58:44.410Z error: /login: 
+Invalid `prisma.user.findUnique()` invocation:
+
+
+Can't reach database server at `localhost:3306`
+
+Please make sure your database server is running at `localhost:3306`.
+2025-05-16T10:29:41.367Z error: /login: Illegal arguments: string, undefined
+2025-05-16T10:29:54.587Z error: /login: Illegal arguments: string, undefined
+2025-05-16T10:31:11.456Z error: /login: Illegal arguments: string, undefined

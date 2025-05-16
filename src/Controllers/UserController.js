@@ -1,14 +1,14 @@
 import { PERPAGE } from "../config/global.config.js";
 import logger from "../config/logger.config.js";
-import { isEmpty } from "../Helper/Helper.js";
-import User from "../Models/User.js";
+import { isEmpty } from "../helper/helper.js";
+import User from "../models/user.js";
 import {
   recordsRes,
   successRes,
   failedRes,
   notFoundRes,
   serverError,
-} from "../Services/Response.js";
+} from "../services/response.js";
 import { Status } from "../generated/prisma/index.js";
 import bcrypt from "bcryptjs";
 // const prisma = new PrismaClient();
