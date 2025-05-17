@@ -14,6 +14,16 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
+ * Model User
+ * 
+ */
+export type User = $Result.DefaultSelection<Prisma.$UserPayload>
+/**
+ * Model authToken
+ * 
+ */
+export type authToken = $Result.DefaultSelection<Prisma.$authTokenPayload>
+/**
  * Model category
  * 
  */
@@ -43,7 +53,24 @@ export type productToImage = $Result.DefaultSelection<Prisma.$productToImagePayl
  * Enums
  */
 export namespace $Enums {
-  export const status: {
+  export const gender: {
+  male: 'male',
+  female: 'female',
+  other: 'other'
+};
+
+export type gender = (typeof gender)[keyof typeof gender]
+
+
+export const role: {
+  admin: 'admin',
+  user: 'user'
+};
+
+export type role = (typeof role)[keyof typeof role]
+
+
+export const status: {
   inactive: 'inactive',
   active: 'active'
 };
@@ -51,6 +78,14 @@ export namespace $Enums {
 export type status = (typeof status)[keyof typeof status]
 
 }
+
+export type gender = $Enums.gender
+
+export const gender: typeof $Enums.gender
+
+export type role = $Enums.role
+
+export const role: typeof $Enums.role
 
 export type status = $Enums.status
 
@@ -63,8 +98,8 @@ export const status: typeof $Enums.status
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Categories
- * const categories = await prisma.category.findMany()
+ * // Fetch zero or more Users
+ * const users = await prisma.user.findMany()
  * ```
  *
  *
@@ -84,8 +119,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Categories
-   * const categories = await prisma.category.findMany()
+   * // Fetch zero or more Users
+   * const users = await prisma.user.findMany()
    * ```
    *
    *
@@ -182,6 +217,26 @@ export class PrismaClient<
   }>>
 
       /**
+   * `prisma.user`: Exposes CRUD operations for the **User** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Users
+    * const users = await prisma.user.findMany()
+    * ```
+    */
+  get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.authToken`: Exposes CRUD operations for the **authToken** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AuthTokens
+    * const authTokens = await prisma.authToken.findMany()
+    * ```
+    */
+  get authToken(): Prisma.authTokenDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.category`: Exposes CRUD operations for the **category** model.
     * Example usage:
     * ```ts
@@ -670,6 +725,8 @@ export namespace Prisma {
 
 
   export const ModelName: {
+    User: 'User',
+    authToken: 'authToken',
     category: 'category',
     brand: 'brand',
     unit: 'unit',
@@ -693,10 +750,142 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "category" | "brand" | "unit" | "product" | "productToImage"
+      modelProps: "user" | "authToken" | "category" | "brand" | "unit" | "product" | "productToImage"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
+      User: {
+        payload: Prisma.$UserPayload<ExtArgs>
+        fields: Prisma.UserFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          findFirst: {
+            args: Prisma.UserFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          findMany: {
+            args: Prisma.UserFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
+          }
+          create: {
+            args: Prisma.UserCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          createMany: {
+            args: Prisma.UserCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.UserDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          update: {
+            args: Prisma.UserUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.UserUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          aggregate: {
+            args: Prisma.UserAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUser>
+          }
+          groupBy: {
+            args: Prisma.UserGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserCountArgs<ExtArgs>
+            result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      authToken: {
+        payload: Prisma.$authTokenPayload<ExtArgs>
+        fields: Prisma.authTokenFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.authTokenFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$authTokenPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.authTokenFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$authTokenPayload>
+          }
+          findFirst: {
+            args: Prisma.authTokenFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$authTokenPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.authTokenFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$authTokenPayload>
+          }
+          findMany: {
+            args: Prisma.authTokenFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$authTokenPayload>[]
+          }
+          create: {
+            args: Prisma.authTokenCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$authTokenPayload>
+          }
+          createMany: {
+            args: Prisma.authTokenCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.authTokenDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$authTokenPayload>
+          }
+          update: {
+            args: Prisma.authTokenUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$authTokenPayload>
+          }
+          deleteMany: {
+            args: Prisma.authTokenDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.authTokenUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.authTokenUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$authTokenPayload>
+          }
+          aggregate: {
+            args: Prisma.AuthTokenAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAuthToken>
+          }
+          groupBy: {
+            args: Prisma.authTokenGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AuthTokenGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.authTokenCountArgs<ExtArgs>
+            result: $Utils.Optional<AuthTokenCountAggregateOutputType> | number
+          }
+        }
+      }
       category: {
         payload: Prisma.$categoryPayload<ExtArgs>
         fields: Prisma.categoryFieldRefs
@@ -1111,6 +1300,8 @@ export namespace Prisma {
     omit?: Prisma.GlobalOmitConfig
   }
   export type GlobalOmitConfig = {
+    user?: UserOmit
+    authToken?: authTokenOmit
     category?: categoryOmit
     brand?: brandOmit
     unit?: unitOmit
@@ -1203,6 +1394,37 @@ export namespace Prisma {
   /**
    * Count Types
    */
+
+
+  /**
+   * Count Type UserCountOutputType
+   */
+
+  export type UserCountOutputType = {
+    authToken: number
+  }
+
+  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    authToken?: boolean | UserCountOutputTypeCountAuthTokenArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCountOutputType
+     */
+    select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAuthTokenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: authTokenWhereInput
+  }
 
 
   /**
@@ -1332,6 +1554,2098 @@ export namespace Prisma {
   /**
    * Models
    */
+
+  /**
+   * Model User
+   */
+
+  export type AggregateUser = {
+    _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
+    _min: UserMinAggregateOutputType | null
+    _max: UserMaxAggregateOutputType | null
+  }
+
+  export type UserAvgAggregateOutputType = {
+    id: number | null
+    pincode: number | null
+  }
+
+  export type UserSumAggregateOutputType = {
+    id: number | null
+    pincode: number | null
+  }
+
+  export type UserMinAggregateOutputType = {
+    id: number | null
+    name: string | null
+    email: string | null
+    password: string | null
+    phoneNo: string | null
+    gender: $Enums.gender | null
+    dob: Date | null
+    address: string | null
+    city: string | null
+    state: string | null
+    pincode: number | null
+    country: string | null
+    status: $Enums.status | null
+    role: $Enums.role | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    deletedAt: Date | null
+  }
+
+  export type UserMaxAggregateOutputType = {
+    id: number | null
+    name: string | null
+    email: string | null
+    password: string | null
+    phoneNo: string | null
+    gender: $Enums.gender | null
+    dob: Date | null
+    address: string | null
+    city: string | null
+    state: string | null
+    pincode: number | null
+    country: string | null
+    status: $Enums.status | null
+    role: $Enums.role | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    deletedAt: Date | null
+  }
+
+  export type UserCountAggregateOutputType = {
+    id: number
+    name: number
+    email: number
+    password: number
+    phoneNo: number
+    gender: number
+    dob: number
+    address: number
+    city: number
+    state: number
+    pincode: number
+    country: number
+    status: number
+    role: number
+    createdAt: number
+    updatedAt: number
+    deletedAt: number
+    _all: number
+  }
+
+
+  export type UserAvgAggregateInputType = {
+    id?: true
+    pincode?: true
+  }
+
+  export type UserSumAggregateInputType = {
+    id?: true
+    pincode?: true
+  }
+
+  export type UserMinAggregateInputType = {
+    id?: true
+    name?: true
+    email?: true
+    password?: true
+    phoneNo?: true
+    gender?: true
+    dob?: true
+    address?: true
+    city?: true
+    state?: true
+    pincode?: true
+    country?: true
+    status?: true
+    role?: true
+    createdAt?: true
+    updatedAt?: true
+    deletedAt?: true
+  }
+
+  export type UserMaxAggregateInputType = {
+    id?: true
+    name?: true
+    email?: true
+    password?: true
+    phoneNo?: true
+    gender?: true
+    dob?: true
+    address?: true
+    city?: true
+    state?: true
+    pincode?: true
+    country?: true
+    status?: true
+    role?: true
+    createdAt?: true
+    updatedAt?: true
+    deletedAt?: true
+  }
+
+  export type UserCountAggregateInputType = {
+    id?: true
+    name?: true
+    email?: true
+    password?: true
+    phoneNo?: true
+    gender?: true
+    dob?: true
+    address?: true
+    city?: true
+    state?: true
+    pincode?: true
+    country?: true
+    status?: true
+    role?: true
+    createdAt?: true
+    updatedAt?: true
+    deletedAt?: true
+    _all?: true
+  }
+
+  export type UserAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which User to aggregate.
+     */
+    where?: UserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Users to fetch.
+     */
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Users.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Users
+    **/
+    _count?: true | UserCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UserAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserMaxAggregateInputType
+  }
+
+  export type GetUserAggregateType<T extends UserAggregateArgs> = {
+        [P in keyof T & keyof AggregateUser]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUser[P]>
+      : GetScalarType<T[P], AggregateUser[P]>
+  }
+
+
+
+
+  export type UserGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithAggregationInput | UserOrderByWithAggregationInput[]
+    by: UserScalarFieldEnum[] | UserScalarFieldEnum
+    having?: UserScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserCountAggregateInputType | true
+    _avg?: UserAvgAggregateInputType
+    _sum?: UserSumAggregateInputType
+    _min?: UserMinAggregateInputType
+    _max?: UserMaxAggregateInputType
+  }
+
+  export type UserGroupByOutputType = {
+    id: number
+    name: string
+    email: string
+    password: string
+    phoneNo: string | null
+    gender: $Enums.gender
+    dob: Date | null
+    address: string | null
+    city: string | null
+    state: string | null
+    pincode: number | null
+    country: string | null
+    status: $Enums.status
+    role: $Enums.role
+    createdAt: Date
+    updatedAt: Date
+    deletedAt: Date | null
+    _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
+    _min: UserMinAggregateOutputType | null
+    _max: UserMaxAggregateOutputType | null
+  }
+
+  type GetUserGroupByPayload<T extends UserGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserGroupByOutputType[P]>
+            : GetScalarType<T[P], UserGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    email?: boolean
+    password?: boolean
+    phoneNo?: boolean
+    gender?: boolean
+    dob?: boolean
+    address?: boolean
+    city?: boolean
+    state?: boolean
+    pincode?: boolean
+    country?: boolean
+    status?: boolean
+    role?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deletedAt?: boolean
+    authToken?: boolean | User$authTokenArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["user"]>
+
+
+
+  export type UserSelectScalar = {
+    id?: boolean
+    name?: boolean
+    email?: boolean
+    password?: boolean
+    phoneNo?: boolean
+    gender?: boolean
+    dob?: boolean
+    address?: boolean
+    city?: boolean
+    state?: boolean
+    pincode?: boolean
+    country?: boolean
+    status?: boolean
+    role?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deletedAt?: boolean
+  }
+
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "phoneNo" | "gender" | "dob" | "address" | "city" | "state" | "pincode" | "country" | "status" | "role" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["user"]>
+  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    authToken?: boolean | User$authTokenArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "User"
+    objects: {
+      authToken: Prisma.$authTokenPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      name: string
+      email: string
+      password: string
+      phoneNo: string | null
+      gender: $Enums.gender
+      dob: Date | null
+      address: string | null
+      city: string | null
+      state: string | null
+      pincode: number | null
+      country: string | null
+      status: $Enums.status
+      role: $Enums.role
+      createdAt: Date
+      updatedAt: Date
+      deletedAt: Date | null
+    }, ExtArgs["result"]["user"]>
+    composites: {}
+  }
+
+  type UserGetPayload<S extends boolean | null | undefined | UserDefaultArgs> = $Result.GetResult<Prisma.$UserPayload, S>
+
+  type UserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserCountAggregateInputType | true
+    }
+
+  export interface UserDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['User'], meta: { name: 'User' } }
+    /**
+     * Find zero or one User that matches the filter.
+     * @param {UserFindUniqueArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserFindUniqueArgs>(args: SelectSubset<T, UserFindUniqueArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one User that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserFindUniqueOrThrowArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserFindUniqueOrThrowArgs>(args: SelectSubset<T, UserFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first User that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserFindFirstArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserFindFirstArgs>(args?: SelectSubset<T, UserFindFirstArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first User that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserFindFirstOrThrowArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserFindFirstOrThrowArgs>(args?: SelectSubset<T, UserFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Users that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Users
+     * const users = await prisma.user.findMany()
+     * 
+     * // Get first 10 Users
+     * const users = await prisma.user.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userWithIdOnly = await prisma.user.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserFindManyArgs>(args?: SelectSubset<T, UserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a User.
+     * @param {UserCreateArgs} args - Arguments to create a User.
+     * @example
+     * // Create one User
+     * const User = await prisma.user.create({
+     *   data: {
+     *     // ... data to create a User
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserCreateArgs>(args: SelectSubset<T, UserCreateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Users.
+     * @param {UserCreateManyArgs} args - Arguments to create many Users.
+     * @example
+     * // Create many Users
+     * const user = await prisma.user.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserCreateManyArgs>(args?: SelectSubset<T, UserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a User.
+     * @param {UserDeleteArgs} args - Arguments to delete one User.
+     * @example
+     * // Delete one User
+     * const User = await prisma.user.delete({
+     *   where: {
+     *     // ... filter to delete one User
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserDeleteArgs>(args: SelectSubset<T, UserDeleteArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one User.
+     * @param {UserUpdateArgs} args - Arguments to update one User.
+     * @example
+     * // Update one User
+     * const user = await prisma.user.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserUpdateArgs>(args: SelectSubset<T, UserUpdateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Users.
+     * @param {UserDeleteManyArgs} args - Arguments to filter Users to delete.
+     * @example
+     * // Delete a few Users
+     * const { count } = await prisma.user.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserDeleteManyArgs>(args?: SelectSubset<T, UserDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Users.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Users
+     * const user = await prisma.user.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserUpdateManyArgs>(args: SelectSubset<T, UserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one User.
+     * @param {UserUpsertArgs} args - Arguments to update or create a User.
+     * @example
+     * // Update or create a User
+     * const user = await prisma.user.upsert({
+     *   create: {
+     *     // ... data to create a User
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the User we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserUpsertArgs>(args: SelectSubset<T, UserUpsertArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Users.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserCountArgs} args - Arguments to filter Users to count.
+     * @example
+     * // Count the number of Users
+     * const count = await prisma.user.count({
+     *   where: {
+     *     // ... the filter for the Users we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserCountArgs>(
+      args?: Subset<T, UserCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a User.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserAggregateArgs>(args: Subset<T, UserAggregateArgs>): Prisma.PrismaPromise<GetUserAggregateType<T>>
+
+    /**
+     * Group by User.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserGroupByArgs['orderBy'] }
+        : { orderBy?: UserGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the User model
+   */
+  readonly fields: UserFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for User.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    authToken<T extends User$authTokenArgs<ExtArgs> = {}>(args?: Subset<T, User$authTokenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$authTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the User model
+   */
+  interface UserFieldRefs {
+    readonly id: FieldRef<"User", 'Int'>
+    readonly name: FieldRef<"User", 'String'>
+    readonly email: FieldRef<"User", 'String'>
+    readonly password: FieldRef<"User", 'String'>
+    readonly phoneNo: FieldRef<"User", 'String'>
+    readonly gender: FieldRef<"User", 'gender'>
+    readonly dob: FieldRef<"User", 'DateTime'>
+    readonly address: FieldRef<"User", 'String'>
+    readonly city: FieldRef<"User", 'String'>
+    readonly state: FieldRef<"User", 'String'>
+    readonly pincode: FieldRef<"User", 'Int'>
+    readonly country: FieldRef<"User", 'String'>
+    readonly status: FieldRef<"User", 'status'>
+    readonly role: FieldRef<"User", 'role'>
+    readonly createdAt: FieldRef<"User", 'DateTime'>
+    readonly updatedAt: FieldRef<"User", 'DateTime'>
+    readonly deletedAt: FieldRef<"User", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * User findUnique
+   */
+  export type UserFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter, which User to fetch.
+     */
+    where: UserWhereUniqueInput
+  }
+
+  /**
+   * User findUniqueOrThrow
+   */
+  export type UserFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter, which User to fetch.
+     */
+    where: UserWhereUniqueInput
+  }
+
+  /**
+   * User findFirst
+   */
+  export type UserFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter, which User to fetch.
+     */
+    where?: UserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Users to fetch.
+     */
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Users.
+     */
+    cursor?: UserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Users.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Users.
+     */
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * User findFirstOrThrow
+   */
+  export type UserFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter, which User to fetch.
+     */
+    where?: UserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Users to fetch.
+     */
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Users.
+     */
+    cursor?: UserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Users.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Users.
+     */
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * User findMany
+   */
+  export type UserFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter, which Users to fetch.
+     */
+    where?: UserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Users to fetch.
+     */
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Users.
+     */
+    cursor?: UserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Users.
+     */
+    skip?: number
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * User create
+   */
+  export type UserCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * The data needed to create a User.
+     */
+    data: XOR<UserCreateInput, UserUncheckedCreateInput>
+  }
+
+  /**
+   * User createMany
+   */
+  export type UserCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Users.
+     */
+    data: UserCreateManyInput | UserCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * User update
+   */
+  export type UserUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * The data needed to update a User.
+     */
+    data: XOR<UserUpdateInput, UserUncheckedUpdateInput>
+    /**
+     * Choose, which User to update.
+     */
+    where: UserWhereUniqueInput
+  }
+
+  /**
+   * User updateMany
+   */
+  export type UserUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Users.
+     */
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyInput>
+    /**
+     * Filter which Users to update
+     */
+    where?: UserWhereInput
+    /**
+     * Limit how many Users to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * User upsert
+   */
+  export type UserUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * The filter to search for the User to update in case it exists.
+     */
+    where: UserWhereUniqueInput
+    /**
+     * In case the User found by the `where` argument doesn't exist, create a new User with this data.
+     */
+    create: XOR<UserCreateInput, UserUncheckedCreateInput>
+    /**
+     * In case the User was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserUpdateInput, UserUncheckedUpdateInput>
+  }
+
+  /**
+   * User delete
+   */
+  export type UserDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter which User to delete.
+     */
+    where: UserWhereUniqueInput
+  }
+
+  /**
+   * User deleteMany
+   */
+  export type UserDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Users to delete
+     */
+    where?: UserWhereInput
+    /**
+     * Limit how many Users to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * User.authToken
+   */
+  export type User$authTokenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the authToken
+     */
+    select?: authTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the authToken
+     */
+    omit?: authTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: authTokenInclude<ExtArgs> | null
+    where?: authTokenWhereInput
+    orderBy?: authTokenOrderByWithRelationInput | authTokenOrderByWithRelationInput[]
+    cursor?: authTokenWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AuthTokenScalarFieldEnum | AuthTokenScalarFieldEnum[]
+  }
+
+  /**
+   * User without action
+   */
+  export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model authToken
+   */
+
+  export type AggregateAuthToken = {
+    _count: AuthTokenCountAggregateOutputType | null
+    _avg: AuthTokenAvgAggregateOutputType | null
+    _sum: AuthTokenSumAggregateOutputType | null
+    _min: AuthTokenMinAggregateOutputType | null
+    _max: AuthTokenMaxAggregateOutputType | null
+  }
+
+  export type AuthTokenAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+  }
+
+  export type AuthTokenSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+  }
+
+  export type AuthTokenMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    token: string | null
+    createdAt: Date | null
+    expiresAt: Date | null
+  }
+
+  export type AuthTokenMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    token: string | null
+    createdAt: Date | null
+    expiresAt: Date | null
+  }
+
+  export type AuthTokenCountAggregateOutputType = {
+    id: number
+    userId: number
+    token: number
+    createdAt: number
+    expiresAt: number
+    _all: number
+  }
+
+
+  export type AuthTokenAvgAggregateInputType = {
+    id?: true
+    userId?: true
+  }
+
+  export type AuthTokenSumAggregateInputType = {
+    id?: true
+    userId?: true
+  }
+
+  export type AuthTokenMinAggregateInputType = {
+    id?: true
+    userId?: true
+    token?: true
+    createdAt?: true
+    expiresAt?: true
+  }
+
+  export type AuthTokenMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    token?: true
+    createdAt?: true
+    expiresAt?: true
+  }
+
+  export type AuthTokenCountAggregateInputType = {
+    id?: true
+    userId?: true
+    token?: true
+    createdAt?: true
+    expiresAt?: true
+    _all?: true
+  }
+
+  export type AuthTokenAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which authToken to aggregate.
+     */
+    where?: authTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of authTokens to fetch.
+     */
+    orderBy?: authTokenOrderByWithRelationInput | authTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: authTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` authTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` authTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned authTokens
+    **/
+    _count?: true | AuthTokenCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AuthTokenAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AuthTokenSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AuthTokenMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AuthTokenMaxAggregateInputType
+  }
+
+  export type GetAuthTokenAggregateType<T extends AuthTokenAggregateArgs> = {
+        [P in keyof T & keyof AggregateAuthToken]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAuthToken[P]>
+      : GetScalarType<T[P], AggregateAuthToken[P]>
+  }
+
+
+
+
+  export type authTokenGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: authTokenWhereInput
+    orderBy?: authTokenOrderByWithAggregationInput | authTokenOrderByWithAggregationInput[]
+    by: AuthTokenScalarFieldEnum[] | AuthTokenScalarFieldEnum
+    having?: authTokenScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AuthTokenCountAggregateInputType | true
+    _avg?: AuthTokenAvgAggregateInputType
+    _sum?: AuthTokenSumAggregateInputType
+    _min?: AuthTokenMinAggregateInputType
+    _max?: AuthTokenMaxAggregateInputType
+  }
+
+  export type AuthTokenGroupByOutputType = {
+    id: number
+    userId: number
+    token: string
+    createdAt: Date
+    expiresAt: Date
+    _count: AuthTokenCountAggregateOutputType | null
+    _avg: AuthTokenAvgAggregateOutputType | null
+    _sum: AuthTokenSumAggregateOutputType | null
+    _min: AuthTokenMinAggregateOutputType | null
+    _max: AuthTokenMaxAggregateOutputType | null
+  }
+
+  type GetAuthTokenGroupByPayload<T extends authTokenGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AuthTokenGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AuthTokenGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AuthTokenGroupByOutputType[P]>
+            : GetScalarType<T[P], AuthTokenGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type authTokenSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    token?: boolean
+    createdAt?: boolean
+    expiresAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["authToken"]>
+
+
+
+  export type authTokenSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    token?: boolean
+    createdAt?: boolean
+    expiresAt?: boolean
+  }
+
+  export type authTokenOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "token" | "createdAt" | "expiresAt", ExtArgs["result"]["authToken"]>
+  export type authTokenInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $authTokenPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "authToken"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      token: string
+      createdAt: Date
+      expiresAt: Date
+    }, ExtArgs["result"]["authToken"]>
+    composites: {}
+  }
+
+  type authTokenGetPayload<S extends boolean | null | undefined | authTokenDefaultArgs> = $Result.GetResult<Prisma.$authTokenPayload, S>
+
+  type authTokenCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<authTokenFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AuthTokenCountAggregateInputType | true
+    }
+
+  export interface authTokenDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['authToken'], meta: { name: 'authToken' } }
+    /**
+     * Find zero or one AuthToken that matches the filter.
+     * @param {authTokenFindUniqueArgs} args - Arguments to find a AuthToken
+     * @example
+     * // Get one AuthToken
+     * const authToken = await prisma.authToken.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends authTokenFindUniqueArgs>(args: SelectSubset<T, authTokenFindUniqueArgs<ExtArgs>>): Prisma__authTokenClient<$Result.GetResult<Prisma.$authTokenPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AuthToken that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {authTokenFindUniqueOrThrowArgs} args - Arguments to find a AuthToken
+     * @example
+     * // Get one AuthToken
+     * const authToken = await prisma.authToken.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends authTokenFindUniqueOrThrowArgs>(args: SelectSubset<T, authTokenFindUniqueOrThrowArgs<ExtArgs>>): Prisma__authTokenClient<$Result.GetResult<Prisma.$authTokenPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AuthToken that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {authTokenFindFirstArgs} args - Arguments to find a AuthToken
+     * @example
+     * // Get one AuthToken
+     * const authToken = await prisma.authToken.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends authTokenFindFirstArgs>(args?: SelectSubset<T, authTokenFindFirstArgs<ExtArgs>>): Prisma__authTokenClient<$Result.GetResult<Prisma.$authTokenPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AuthToken that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {authTokenFindFirstOrThrowArgs} args - Arguments to find a AuthToken
+     * @example
+     * // Get one AuthToken
+     * const authToken = await prisma.authToken.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends authTokenFindFirstOrThrowArgs>(args?: SelectSubset<T, authTokenFindFirstOrThrowArgs<ExtArgs>>): Prisma__authTokenClient<$Result.GetResult<Prisma.$authTokenPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AuthTokens that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {authTokenFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AuthTokens
+     * const authTokens = await prisma.authToken.findMany()
+     * 
+     * // Get first 10 AuthTokens
+     * const authTokens = await prisma.authToken.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const authTokenWithIdOnly = await prisma.authToken.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends authTokenFindManyArgs>(args?: SelectSubset<T, authTokenFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$authTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AuthToken.
+     * @param {authTokenCreateArgs} args - Arguments to create a AuthToken.
+     * @example
+     * // Create one AuthToken
+     * const AuthToken = await prisma.authToken.create({
+     *   data: {
+     *     // ... data to create a AuthToken
+     *   }
+     * })
+     * 
+     */
+    create<T extends authTokenCreateArgs>(args: SelectSubset<T, authTokenCreateArgs<ExtArgs>>): Prisma__authTokenClient<$Result.GetResult<Prisma.$authTokenPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AuthTokens.
+     * @param {authTokenCreateManyArgs} args - Arguments to create many AuthTokens.
+     * @example
+     * // Create many AuthTokens
+     * const authToken = await prisma.authToken.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends authTokenCreateManyArgs>(args?: SelectSubset<T, authTokenCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a AuthToken.
+     * @param {authTokenDeleteArgs} args - Arguments to delete one AuthToken.
+     * @example
+     * // Delete one AuthToken
+     * const AuthToken = await prisma.authToken.delete({
+     *   where: {
+     *     // ... filter to delete one AuthToken
+     *   }
+     * })
+     * 
+     */
+    delete<T extends authTokenDeleteArgs>(args: SelectSubset<T, authTokenDeleteArgs<ExtArgs>>): Prisma__authTokenClient<$Result.GetResult<Prisma.$authTokenPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AuthToken.
+     * @param {authTokenUpdateArgs} args - Arguments to update one AuthToken.
+     * @example
+     * // Update one AuthToken
+     * const authToken = await prisma.authToken.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends authTokenUpdateArgs>(args: SelectSubset<T, authTokenUpdateArgs<ExtArgs>>): Prisma__authTokenClient<$Result.GetResult<Prisma.$authTokenPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AuthTokens.
+     * @param {authTokenDeleteManyArgs} args - Arguments to filter AuthTokens to delete.
+     * @example
+     * // Delete a few AuthTokens
+     * const { count } = await prisma.authToken.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends authTokenDeleteManyArgs>(args?: SelectSubset<T, authTokenDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AuthTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {authTokenUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AuthTokens
+     * const authToken = await prisma.authToken.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends authTokenUpdateManyArgs>(args: SelectSubset<T, authTokenUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one AuthToken.
+     * @param {authTokenUpsertArgs} args - Arguments to update or create a AuthToken.
+     * @example
+     * // Update or create a AuthToken
+     * const authToken = await prisma.authToken.upsert({
+     *   create: {
+     *     // ... data to create a AuthToken
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AuthToken we want to update
+     *   }
+     * })
+     */
+    upsert<T extends authTokenUpsertArgs>(args: SelectSubset<T, authTokenUpsertArgs<ExtArgs>>): Prisma__authTokenClient<$Result.GetResult<Prisma.$authTokenPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AuthTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {authTokenCountArgs} args - Arguments to filter AuthTokens to count.
+     * @example
+     * // Count the number of AuthTokens
+     * const count = await prisma.authToken.count({
+     *   where: {
+     *     // ... the filter for the AuthTokens we want to count
+     *   }
+     * })
+    **/
+    count<T extends authTokenCountArgs>(
+      args?: Subset<T, authTokenCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AuthTokenCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AuthToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuthTokenAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AuthTokenAggregateArgs>(args: Subset<T, AuthTokenAggregateArgs>): Prisma.PrismaPromise<GetAuthTokenAggregateType<T>>
+
+    /**
+     * Group by AuthToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {authTokenGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends authTokenGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: authTokenGroupByArgs['orderBy'] }
+        : { orderBy?: authTokenGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, authTokenGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAuthTokenGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the authToken model
+   */
+  readonly fields: authTokenFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for authToken.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__authTokenClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the authToken model
+   */
+  interface authTokenFieldRefs {
+    readonly id: FieldRef<"authToken", 'Int'>
+    readonly userId: FieldRef<"authToken", 'Int'>
+    readonly token: FieldRef<"authToken", 'String'>
+    readonly createdAt: FieldRef<"authToken", 'DateTime'>
+    readonly expiresAt: FieldRef<"authToken", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * authToken findUnique
+   */
+  export type authTokenFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the authToken
+     */
+    select?: authTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the authToken
+     */
+    omit?: authTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: authTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which authToken to fetch.
+     */
+    where: authTokenWhereUniqueInput
+  }
+
+  /**
+   * authToken findUniqueOrThrow
+   */
+  export type authTokenFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the authToken
+     */
+    select?: authTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the authToken
+     */
+    omit?: authTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: authTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which authToken to fetch.
+     */
+    where: authTokenWhereUniqueInput
+  }
+
+  /**
+   * authToken findFirst
+   */
+  export type authTokenFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the authToken
+     */
+    select?: authTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the authToken
+     */
+    omit?: authTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: authTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which authToken to fetch.
+     */
+    where?: authTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of authTokens to fetch.
+     */
+    orderBy?: authTokenOrderByWithRelationInput | authTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for authTokens.
+     */
+    cursor?: authTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` authTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` authTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of authTokens.
+     */
+    distinct?: AuthTokenScalarFieldEnum | AuthTokenScalarFieldEnum[]
+  }
+
+  /**
+   * authToken findFirstOrThrow
+   */
+  export type authTokenFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the authToken
+     */
+    select?: authTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the authToken
+     */
+    omit?: authTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: authTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which authToken to fetch.
+     */
+    where?: authTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of authTokens to fetch.
+     */
+    orderBy?: authTokenOrderByWithRelationInput | authTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for authTokens.
+     */
+    cursor?: authTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` authTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` authTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of authTokens.
+     */
+    distinct?: AuthTokenScalarFieldEnum | AuthTokenScalarFieldEnum[]
+  }
+
+  /**
+   * authToken findMany
+   */
+  export type authTokenFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the authToken
+     */
+    select?: authTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the authToken
+     */
+    omit?: authTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: authTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which authTokens to fetch.
+     */
+    where?: authTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of authTokens to fetch.
+     */
+    orderBy?: authTokenOrderByWithRelationInput | authTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing authTokens.
+     */
+    cursor?: authTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` authTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` authTokens.
+     */
+    skip?: number
+    distinct?: AuthTokenScalarFieldEnum | AuthTokenScalarFieldEnum[]
+  }
+
+  /**
+   * authToken create
+   */
+  export type authTokenCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the authToken
+     */
+    select?: authTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the authToken
+     */
+    omit?: authTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: authTokenInclude<ExtArgs> | null
+    /**
+     * The data needed to create a authToken.
+     */
+    data: XOR<authTokenCreateInput, authTokenUncheckedCreateInput>
+  }
+
+  /**
+   * authToken createMany
+   */
+  export type authTokenCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many authTokens.
+     */
+    data: authTokenCreateManyInput | authTokenCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * authToken update
+   */
+  export type authTokenUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the authToken
+     */
+    select?: authTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the authToken
+     */
+    omit?: authTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: authTokenInclude<ExtArgs> | null
+    /**
+     * The data needed to update a authToken.
+     */
+    data: XOR<authTokenUpdateInput, authTokenUncheckedUpdateInput>
+    /**
+     * Choose, which authToken to update.
+     */
+    where: authTokenWhereUniqueInput
+  }
+
+  /**
+   * authToken updateMany
+   */
+  export type authTokenUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update authTokens.
+     */
+    data: XOR<authTokenUpdateManyMutationInput, authTokenUncheckedUpdateManyInput>
+    /**
+     * Filter which authTokens to update
+     */
+    where?: authTokenWhereInput
+    /**
+     * Limit how many authTokens to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * authToken upsert
+   */
+  export type authTokenUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the authToken
+     */
+    select?: authTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the authToken
+     */
+    omit?: authTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: authTokenInclude<ExtArgs> | null
+    /**
+     * The filter to search for the authToken to update in case it exists.
+     */
+    where: authTokenWhereUniqueInput
+    /**
+     * In case the authToken found by the `where` argument doesn't exist, create a new authToken with this data.
+     */
+    create: XOR<authTokenCreateInput, authTokenUncheckedCreateInput>
+    /**
+     * In case the authToken was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<authTokenUpdateInput, authTokenUncheckedUpdateInput>
+  }
+
+  /**
+   * authToken delete
+   */
+  export type authTokenDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the authToken
+     */
+    select?: authTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the authToken
+     */
+    omit?: authTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: authTokenInclude<ExtArgs> | null
+    /**
+     * Filter which authToken to delete.
+     */
+    where: authTokenWhereUniqueInput
+  }
+
+  /**
+   * authToken deleteMany
+   */
+  export type authTokenDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which authTokens to delete
+     */
+    where?: authTokenWhereInput
+    /**
+     * Limit how many authTokens to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * authToken without action
+   */
+  export type authTokenDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the authToken
+     */
+    select?: authTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the authToken
+     */
+    omit?: authTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: authTokenInclude<ExtArgs> | null
+  }
+
 
   /**
    * Model category
@@ -6508,6 +8822,40 @@ export namespace Prisma {
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+  export const UserScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    email: 'email',
+    password: 'password',
+    phoneNo: 'phoneNo',
+    gender: 'gender',
+    dob: 'dob',
+    address: 'address',
+    city: 'city',
+    state: 'state',
+    pincode: 'pincode',
+    country: 'country',
+    status: 'status',
+    role: 'role',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    deletedAt: 'deletedAt'
+  };
+
+  export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const AuthTokenScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    token: 'token',
+    createdAt: 'createdAt',
+    expiresAt: 'expiresAt'
+  };
+
+  export type AuthTokenScalarFieldEnum = (typeof AuthTokenScalarFieldEnum)[keyof typeof AuthTokenScalarFieldEnum]
+
+
   export const CategoryScalarFieldEnum: {
     id: 'id',
     category: 'category',
@@ -6597,6 +8945,27 @@ export namespace Prisma {
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
+  export const UserOrderByRelevanceFieldEnum: {
+    name: 'name',
+    email: 'email',
+    password: 'password',
+    phoneNo: 'phoneNo',
+    address: 'address',
+    city: 'city',
+    state: 'state',
+    country: 'country'
+  };
+
+  export type UserOrderByRelevanceFieldEnum = (typeof UserOrderByRelevanceFieldEnum)[keyof typeof UserOrderByRelevanceFieldEnum]
+
+
+  export const authTokenOrderByRelevanceFieldEnum: {
+    token: 'token'
+  };
+
+  export type authTokenOrderByRelevanceFieldEnum = (typeof authTokenOrderByRelevanceFieldEnum)[keyof typeof authTokenOrderByRelevanceFieldEnum]
+
+
   export const categoryOrderByRelevanceFieldEnum: {
     category: 'category',
     description: 'description'
@@ -6658,9 +9027,9 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'status'
+   * Reference to a field of type 'gender'
    */
-  export type EnumstatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'status'>
+  export type EnumgenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'gender'>
     
 
 
@@ -6668,6 +9037,20 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'status'
+   */
+  export type EnumstatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'status'>
+    
+
+
+  /**
+   * Reference to a field of type 'role'
+   */
+  export type EnumroleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'role'>
     
 
 
@@ -6680,6 +9063,182 @@ export namespace Prisma {
    * Deep Input Types
    */
 
+
+  export type UserWhereInput = {
+    AND?: UserWhereInput | UserWhereInput[]
+    OR?: UserWhereInput[]
+    NOT?: UserWhereInput | UserWhereInput[]
+    id?: IntFilter<"User"> | number
+    name?: StringFilter<"User"> | string
+    email?: StringFilter<"User"> | string
+    password?: StringFilter<"User"> | string
+    phoneNo?: StringNullableFilter<"User"> | string | null
+    gender?: EnumgenderFilter<"User"> | $Enums.gender
+    dob?: DateTimeNullableFilter<"User"> | Date | string | null
+    address?: StringNullableFilter<"User"> | string | null
+    city?: StringNullableFilter<"User"> | string | null
+    state?: StringNullableFilter<"User"> | string | null
+    pincode?: IntNullableFilter<"User"> | number | null
+    country?: StringNullableFilter<"User"> | string | null
+    status?: EnumstatusFilter<"User"> | $Enums.status
+    role?: EnumroleFilter<"User"> | $Enums.role
+    createdAt?: DateTimeFilter<"User"> | Date | string
+    updatedAt?: DateTimeFilter<"User"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    authToken?: AuthTokenListRelationFilter
+  }
+
+  export type UserOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
+    phoneNo?: SortOrderInput | SortOrder
+    gender?: SortOrder
+    dob?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    city?: SortOrderInput | SortOrder
+    state?: SortOrderInput | SortOrder
+    pincode?: SortOrderInput | SortOrder
+    country?: SortOrderInput | SortOrder
+    status?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
+    authToken?: authTokenOrderByRelationAggregateInput
+    _relevance?: UserOrderByRelevanceInput
+  }
+
+  export type UserWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    email?: string
+    AND?: UserWhereInput | UserWhereInput[]
+    OR?: UserWhereInput[]
+    NOT?: UserWhereInput | UserWhereInput[]
+    name?: StringFilter<"User"> | string
+    password?: StringFilter<"User"> | string
+    phoneNo?: StringNullableFilter<"User"> | string | null
+    gender?: EnumgenderFilter<"User"> | $Enums.gender
+    dob?: DateTimeNullableFilter<"User"> | Date | string | null
+    address?: StringNullableFilter<"User"> | string | null
+    city?: StringNullableFilter<"User"> | string | null
+    state?: StringNullableFilter<"User"> | string | null
+    pincode?: IntNullableFilter<"User"> | number | null
+    country?: StringNullableFilter<"User"> | string | null
+    status?: EnumstatusFilter<"User"> | $Enums.status
+    role?: EnumroleFilter<"User"> | $Enums.role
+    createdAt?: DateTimeFilter<"User"> | Date | string
+    updatedAt?: DateTimeFilter<"User"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    authToken?: AuthTokenListRelationFilter
+  }, "id" | "email">
+
+  export type UserOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
+    phoneNo?: SortOrderInput | SortOrder
+    gender?: SortOrder
+    dob?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    city?: SortOrderInput | SortOrder
+    state?: SortOrderInput | SortOrder
+    pincode?: SortOrderInput | SortOrder
+    country?: SortOrderInput | SortOrder
+    status?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
+    _count?: UserCountOrderByAggregateInput
+    _avg?: UserAvgOrderByAggregateInput
+    _max?: UserMaxOrderByAggregateInput
+    _min?: UserMinOrderByAggregateInput
+    _sum?: UserSumOrderByAggregateInput
+  }
+
+  export type UserScalarWhereWithAggregatesInput = {
+    AND?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
+    OR?: UserScalarWhereWithAggregatesInput[]
+    NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"User"> | number
+    name?: StringWithAggregatesFilter<"User"> | string
+    email?: StringWithAggregatesFilter<"User"> | string
+    password?: StringWithAggregatesFilter<"User"> | string
+    phoneNo?: StringNullableWithAggregatesFilter<"User"> | string | null
+    gender?: EnumgenderWithAggregatesFilter<"User"> | $Enums.gender
+    dob?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    address?: StringNullableWithAggregatesFilter<"User"> | string | null
+    city?: StringNullableWithAggregatesFilter<"User"> | string | null
+    state?: StringNullableWithAggregatesFilter<"User"> | string | null
+    pincode?: IntNullableWithAggregatesFilter<"User"> | number | null
+    country?: StringNullableWithAggregatesFilter<"User"> | string | null
+    status?: EnumstatusWithAggregatesFilter<"User"> | $Enums.status
+    role?: EnumroleWithAggregatesFilter<"User"> | $Enums.role
+    createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  }
+
+  export type authTokenWhereInput = {
+    AND?: authTokenWhereInput | authTokenWhereInput[]
+    OR?: authTokenWhereInput[]
+    NOT?: authTokenWhereInput | authTokenWhereInput[]
+    id?: IntFilter<"authToken"> | number
+    userId?: IntFilter<"authToken"> | number
+    token?: StringFilter<"authToken"> | string
+    createdAt?: DateTimeFilter<"authToken"> | Date | string
+    expiresAt?: DateTimeFilter<"authToken"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type authTokenOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    token?: SortOrder
+    createdAt?: SortOrder
+    expiresAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    _relevance?: authTokenOrderByRelevanceInput
+  }
+
+  export type authTokenWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    token?: string
+    AND?: authTokenWhereInput | authTokenWhereInput[]
+    OR?: authTokenWhereInput[]
+    NOT?: authTokenWhereInput | authTokenWhereInput[]
+    userId?: IntFilter<"authToken"> | number
+    createdAt?: DateTimeFilter<"authToken"> | Date | string
+    expiresAt?: DateTimeFilter<"authToken"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "token">
+
+  export type authTokenOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    token?: SortOrder
+    createdAt?: SortOrder
+    expiresAt?: SortOrder
+    _count?: authTokenCountOrderByAggregateInput
+    _avg?: authTokenAvgOrderByAggregateInput
+    _max?: authTokenMaxOrderByAggregateInput
+    _min?: authTokenMinOrderByAggregateInput
+    _sum?: authTokenSumOrderByAggregateInput
+  }
+
+  export type authTokenScalarWhereWithAggregatesInput = {
+    AND?: authTokenScalarWhereWithAggregatesInput | authTokenScalarWhereWithAggregatesInput[]
+    OR?: authTokenScalarWhereWithAggregatesInput[]
+    NOT?: authTokenScalarWhereWithAggregatesInput | authTokenScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"authToken"> | number
+    userId?: IntWithAggregatesFilter<"authToken"> | number
+    token?: StringWithAggregatesFilter<"authToken"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"authToken"> | Date | string
+    expiresAt?: DateTimeWithAggregatesFilter<"authToken"> | Date | string
+  }
 
   export type categoryWhereInput = {
     AND?: categoryWhereInput | categoryWhereInput[]
@@ -7068,6 +9627,199 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"productToImage"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"productToImage"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"productToImage"> | Date | string | null
+  }
+
+  export type UserCreateInput = {
+    name: string
+    email: string
+    password: string
+    phoneNo?: string | null
+    gender: $Enums.gender
+    dob?: Date | string | null
+    address?: string | null
+    city?: string | null
+    state?: string | null
+    pincode?: number | null
+    country?: string | null
+    status?: $Enums.status
+    role: $Enums.role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    authToken?: authTokenCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateInput = {
+    id?: number
+    name: string
+    email: string
+    password: string
+    phoneNo?: string | null
+    gender: $Enums.gender
+    dob?: Date | string | null
+    address?: string | null
+    city?: string | null
+    state?: string | null
+    pincode?: number | null
+    country?: string | null
+    status?: $Enums.status
+    role: $Enums.role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    authToken?: authTokenUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phoneNo?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: EnumgenderFieldUpdateOperationsInput | $Enums.gender
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableIntFieldUpdateOperationsInput | number | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumstatusFieldUpdateOperationsInput | $Enums.status
+    role?: EnumroleFieldUpdateOperationsInput | $Enums.role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    authToken?: authTokenUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phoneNo?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: EnumgenderFieldUpdateOperationsInput | $Enums.gender
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableIntFieldUpdateOperationsInput | number | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumstatusFieldUpdateOperationsInput | $Enums.status
+    role?: EnumroleFieldUpdateOperationsInput | $Enums.role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    authToken?: authTokenUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateManyInput = {
+    id?: number
+    name: string
+    email: string
+    password: string
+    phoneNo?: string | null
+    gender: $Enums.gender
+    dob?: Date | string | null
+    address?: string | null
+    city?: string | null
+    state?: string | null
+    pincode?: number | null
+    country?: string | null
+    status?: $Enums.status
+    role: $Enums.role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+  }
+
+  export type UserUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phoneNo?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: EnumgenderFieldUpdateOperationsInput | $Enums.gender
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableIntFieldUpdateOperationsInput | number | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumstatusFieldUpdateOperationsInput | $Enums.status
+    role?: EnumroleFieldUpdateOperationsInput | $Enums.role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type UserUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phoneNo?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: EnumgenderFieldUpdateOperationsInput | $Enums.gender
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableIntFieldUpdateOperationsInput | number | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumstatusFieldUpdateOperationsInput | $Enums.status
+    role?: EnumroleFieldUpdateOperationsInput | $Enums.role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type authTokenCreateInput = {
+    token: string
+    createdAt?: Date | string
+    expiresAt: Date | string
+    user: UserCreateNestedOneWithoutAuthTokenInput
+  }
+
+  export type authTokenUncheckedCreateInput = {
+    id?: number
+    userId: number
+    token: string
+    createdAt?: Date | string
+    expiresAt: Date | string
+  }
+
+  export type authTokenUpdateInput = {
+    token?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutAuthTokenNestedInput
+  }
+
+  export type authTokenUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    token?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type authTokenCreateManyInput = {
+    id?: number
+    userId: number
+    token: string
+    createdAt?: Date | string
+    expiresAt: Date | string
+  }
+
+  export type authTokenUpdateManyMutationInput = {
+    token?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type authTokenUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    token?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type categoryCreateInput = {
@@ -7514,22 +10266,11 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type EnumstatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.status | EnumstatusFieldRefInput<$PrismaModel>
-    in?: $Enums.status[]
-    notIn?: $Enums.status[]
-    not?: NestedEnumstatusFilter<$PrismaModel> | $Enums.status
-  }
-
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  export type EnumgenderFilter<$PrismaModel = never> = {
+    equals?: $Enums.gender | EnumgenderFieldRefInput<$PrismaModel>
+    in?: $Enums.gender[]
+    notIn?: $Enums.gender[]
+    not?: NestedEnumgenderFilter<$PrismaModel> | $Enums.gender
   }
 
   export type DateTimeNullableFilter<$PrismaModel = never> = {
@@ -7543,10 +10284,46 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
-  export type ProductListRelationFilter = {
-    every?: productWhereInput
-    some?: productWhereInput
-    none?: productWhereInput
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type EnumstatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.status | EnumstatusFieldRefInput<$PrismaModel>
+    in?: $Enums.status[]
+    notIn?: $Enums.status[]
+    not?: NestedEnumstatusFilter<$PrismaModel> | $Enums.status
+  }
+
+  export type EnumroleFilter<$PrismaModel = never> = {
+    equals?: $Enums.role | EnumroleFieldRefInput<$PrismaModel>
+    in?: $Enums.role[]
+    notIn?: $Enums.role[]
+    not?: NestedEnumroleFilter<$PrismaModel> | $Enums.role
+  }
+
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type AuthTokenListRelationFilter = {
+    every?: authTokenWhereInput
+    some?: authTokenWhereInput
+    none?: authTokenWhereInput
   }
 
   export type SortOrderInput = {
@@ -7554,57 +10331,84 @@ export namespace Prisma {
     nulls?: NullsOrder
   }
 
-  export type productOrderByRelationAggregateInput = {
+  export type authTokenOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type categoryOrderByRelevanceInput = {
-    fields: categoryOrderByRelevanceFieldEnum | categoryOrderByRelevanceFieldEnum[]
+  export type UserOrderByRelevanceInput = {
+    fields: UserOrderByRelevanceFieldEnum | UserOrderByRelevanceFieldEnum[]
     sort: SortOrder
     search: string
   }
 
-  export type categoryCountOrderByAggregateInput = {
+  export type UserCountOrderByAggregateInput = {
     id?: SortOrder
-    category?: SortOrder
-    description?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
+    phoneNo?: SortOrder
+    gender?: SortOrder
+    dob?: SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
+    pincode?: SortOrder
+    country?: SortOrder
     status?: SortOrder
-    userId?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
   }
 
-  export type categoryAvgOrderByAggregateInput = {
+  export type UserAvgOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
+    pincode?: SortOrder
   }
 
-  export type categoryMaxOrderByAggregateInput = {
+  export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
-    category?: SortOrder
-    description?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
+    phoneNo?: SortOrder
+    gender?: SortOrder
+    dob?: SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
+    pincode?: SortOrder
+    country?: SortOrder
     status?: SortOrder
-    userId?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
   }
 
-  export type categoryMinOrderByAggregateInput = {
+  export type UserMinOrderByAggregateInput = {
     id?: SortOrder
-    category?: SortOrder
-    description?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
+    phoneNo?: SortOrder
+    gender?: SortOrder
+    dob?: SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
+    pincode?: SortOrder
+    country?: SortOrder
     status?: SortOrder
-    userId?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
   }
 
-  export type categorySumOrderByAggregateInput = {
+  export type UserSumOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
+    pincode?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -7659,6 +10463,46 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type EnumgenderWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.gender | EnumgenderFieldRefInput<$PrismaModel>
+    in?: $Enums.gender[]
+    notIn?: $Enums.gender[]
+    not?: NestedEnumgenderWithAggregatesFilter<$PrismaModel> | $Enums.gender
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumgenderFilter<$PrismaModel>
+    _max?: NestedEnumgenderFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
   export type EnumstatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.status | EnumstatusFieldRefInput<$PrismaModel>
     in?: $Enums.status[]
@@ -7667,6 +10511,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumstatusFilter<$PrismaModel>
     _max?: NestedEnumstatusFilter<$PrismaModel>
+  }
+
+  export type EnumroleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.role | EnumroleFieldRefInput<$PrismaModel>
+    in?: $Enums.role[]
+    notIn?: $Enums.role[]
+    not?: NestedEnumroleWithAggregatesFilter<$PrismaModel> | $Enums.role
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumroleFilter<$PrismaModel>
+    _max?: NestedEnumroleFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -7683,18 +10537,108 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type authTokenOrderByRelevanceInput = {
+    fields: authTokenOrderByRelevanceFieldEnum | authTokenOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type authTokenCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    token?: SortOrder
+    createdAt?: SortOrder
+    expiresAt?: SortOrder
+  }
+
+  export type authTokenAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type authTokenMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    token?: SortOrder
+    createdAt?: SortOrder
+    expiresAt?: SortOrder
+  }
+
+  export type authTokenMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    token?: SortOrder
+    createdAt?: SortOrder
+    expiresAt?: SortOrder
+  }
+
+  export type authTokenSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type ProductListRelationFilter = {
+    every?: productWhereInput
+    some?: productWhereInput
+    none?: productWhereInput
+  }
+
+  export type productOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type categoryOrderByRelevanceInput = {
+    fields: categoryOrderByRelevanceFieldEnum | categoryOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type categoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    category?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrder
+  }
+
+  export type categoryAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type categoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    category?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrder
+  }
+
+  export type categoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    category?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrder
+  }
+
+  export type categorySumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
   }
 
   export type brandOrderByRelevanceInput = {
@@ -7938,6 +10882,106 @@ export namespace Prisma {
     productId?: SortOrder
   }
 
+  export type authTokenCreateNestedManyWithoutUserInput = {
+    create?: XOR<authTokenCreateWithoutUserInput, authTokenUncheckedCreateWithoutUserInput> | authTokenCreateWithoutUserInput[] | authTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: authTokenCreateOrConnectWithoutUserInput | authTokenCreateOrConnectWithoutUserInput[]
+    createMany?: authTokenCreateManyUserInputEnvelope
+    connect?: authTokenWhereUniqueInput | authTokenWhereUniqueInput[]
+  }
+
+  export type authTokenUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<authTokenCreateWithoutUserInput, authTokenUncheckedCreateWithoutUserInput> | authTokenCreateWithoutUserInput[] | authTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: authTokenCreateOrConnectWithoutUserInput | authTokenCreateOrConnectWithoutUserInput[]
+    createMany?: authTokenCreateManyUserInputEnvelope
+    connect?: authTokenWhereUniqueInput | authTokenWhereUniqueInput[]
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type EnumgenderFieldUpdateOperationsInput = {
+    set?: $Enums.gender
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type EnumstatusFieldUpdateOperationsInput = {
+    set?: $Enums.status
+  }
+
+  export type EnumroleFieldUpdateOperationsInput = {
+    set?: $Enums.role
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type authTokenUpdateManyWithoutUserNestedInput = {
+    create?: XOR<authTokenCreateWithoutUserInput, authTokenUncheckedCreateWithoutUserInput> | authTokenCreateWithoutUserInput[] | authTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: authTokenCreateOrConnectWithoutUserInput | authTokenCreateOrConnectWithoutUserInput[]
+    upsert?: authTokenUpsertWithWhereUniqueWithoutUserInput | authTokenUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: authTokenCreateManyUserInputEnvelope
+    set?: authTokenWhereUniqueInput | authTokenWhereUniqueInput[]
+    disconnect?: authTokenWhereUniqueInput | authTokenWhereUniqueInput[]
+    delete?: authTokenWhereUniqueInput | authTokenWhereUniqueInput[]
+    connect?: authTokenWhereUniqueInput | authTokenWhereUniqueInput[]
+    update?: authTokenUpdateWithWhereUniqueWithoutUserInput | authTokenUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: authTokenUpdateManyWithWhereWithoutUserInput | authTokenUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: authTokenScalarWhereInput | authTokenScalarWhereInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type authTokenUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<authTokenCreateWithoutUserInput, authTokenUncheckedCreateWithoutUserInput> | authTokenCreateWithoutUserInput[] | authTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: authTokenCreateOrConnectWithoutUserInput | authTokenCreateOrConnectWithoutUserInput[]
+    upsert?: authTokenUpsertWithWhereUniqueWithoutUserInput | authTokenUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: authTokenCreateManyUserInputEnvelope
+    set?: authTokenWhereUniqueInput | authTokenWhereUniqueInput[]
+    disconnect?: authTokenWhereUniqueInput | authTokenWhereUniqueInput[]
+    delete?: authTokenWhereUniqueInput | authTokenWhereUniqueInput[]
+    connect?: authTokenWhereUniqueInput | authTokenWhereUniqueInput[]
+    update?: authTokenUpdateWithWhereUniqueWithoutUserInput | authTokenUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: authTokenUpdateManyWithWhereWithoutUserInput | authTokenUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: authTokenScalarWhereInput | authTokenScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutAuthTokenInput = {
+    create?: XOR<UserCreateWithoutAuthTokenInput, UserUncheckedCreateWithoutAuthTokenInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAuthTokenInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutAuthTokenNestedInput = {
+    create?: XOR<UserCreateWithoutAuthTokenInput, UserUncheckedCreateWithoutAuthTokenInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAuthTokenInput
+    upsert?: UserUpsertWithoutAuthTokenInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAuthTokenInput, UserUpdateWithoutAuthTokenInput>, UserUncheckedUpdateWithoutAuthTokenInput>
+  }
+
   export type productCreateNestedManyWithoutCategoryInput = {
     create?: XOR<productCreateWithoutCategoryInput, productUncheckedCreateWithoutCategoryInput> | productCreateWithoutCategoryInput[] | productUncheckedCreateWithoutCategoryInput[]
     connectOrCreate?: productCreateOrConnectWithoutCategoryInput | productCreateOrConnectWithoutCategoryInput[]
@@ -7950,34 +10994,6 @@ export namespace Prisma {
     connectOrCreate?: productCreateOrConnectWithoutCategoryInput | productCreateOrConnectWithoutCategoryInput[]
     createMany?: productCreateManyCategoryInputEnvelope
     connect?: productWhereUniqueInput | productWhereUniqueInput[]
-  }
-
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
-
-  export type EnumstatusFieldUpdateOperationsInput = {
-    set?: $Enums.status
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
   }
 
   export type productUpdateManyWithoutCategoryNestedInput = {
@@ -8231,22 +11247,11 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type NestedEnumstatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.status | EnumstatusFieldRefInput<$PrismaModel>
-    in?: $Enums.status[]
-    notIn?: $Enums.status[]
-    not?: NestedEnumstatusFilter<$PrismaModel> | $Enums.status
-  }
-
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  export type NestedEnumgenderFilter<$PrismaModel = never> = {
+    equals?: $Enums.gender | EnumgenderFieldRefInput<$PrismaModel>
+    in?: $Enums.gender[]
+    notIn?: $Enums.gender[]
+    not?: NestedEnumgenderFilter<$PrismaModel> | $Enums.gender
   }
 
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
@@ -8258,6 +11263,42 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedEnumstatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.status | EnumstatusFieldRefInput<$PrismaModel>
+    in?: $Enums.status[]
+    notIn?: $Enums.status[]
+    not?: NestedEnumstatusFilter<$PrismaModel> | $Enums.status
+  }
+
+  export type NestedEnumroleFilter<$PrismaModel = never> = {
+    equals?: $Enums.role | EnumroleFieldRefInput<$PrismaModel>
+    in?: $Enums.role[]
+    notIn?: $Enums.role[]
+    not?: NestedEnumroleFilter<$PrismaModel> | $Enums.role
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -8323,7 +11364,31 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
+  export type NestedEnumgenderWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.gender | EnumgenderFieldRefInput<$PrismaModel>
+    in?: $Enums.gender[]
+    notIn?: $Enums.gender[]
+    not?: NestedEnumgenderWithAggregatesFilter<$PrismaModel> | $Enums.gender
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumgenderFilter<$PrismaModel>
+    _max?: NestedEnumgenderFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | null
     notIn?: number[] | null
@@ -8331,7 +11396,23 @@ export namespace Prisma {
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedEnumstatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -8342,6 +11423,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumstatusFilter<$PrismaModel>
     _max?: NestedEnumstatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumroleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.role | EnumroleFieldRefInput<$PrismaModel>
+    in?: $Enums.role[]
+    notIn?: $Enums.role[]
+    not?: NestedEnumroleWithAggregatesFilter<$PrismaModel> | $Enums.role
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumroleFilter<$PrismaModel>
+    _max?: NestedEnumroleFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -8358,18 +11449,148 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  export type authTokenCreateWithoutUserInput = {
+    token: string
+    createdAt?: Date | string
+    expiresAt: Date | string
+  }
+
+  export type authTokenUncheckedCreateWithoutUserInput = {
+    id?: number
+    token: string
+    createdAt?: Date | string
+    expiresAt: Date | string
+  }
+
+  export type authTokenCreateOrConnectWithoutUserInput = {
+    where: authTokenWhereUniqueInput
+    create: XOR<authTokenCreateWithoutUserInput, authTokenUncheckedCreateWithoutUserInput>
+  }
+
+  export type authTokenCreateManyUserInputEnvelope = {
+    data: authTokenCreateManyUserInput | authTokenCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type authTokenUpsertWithWhereUniqueWithoutUserInput = {
+    where: authTokenWhereUniqueInput
+    update: XOR<authTokenUpdateWithoutUserInput, authTokenUncheckedUpdateWithoutUserInput>
+    create: XOR<authTokenCreateWithoutUserInput, authTokenUncheckedCreateWithoutUserInput>
+  }
+
+  export type authTokenUpdateWithWhereUniqueWithoutUserInput = {
+    where: authTokenWhereUniqueInput
+    data: XOR<authTokenUpdateWithoutUserInput, authTokenUncheckedUpdateWithoutUserInput>
+  }
+
+  export type authTokenUpdateManyWithWhereWithoutUserInput = {
+    where: authTokenScalarWhereInput
+    data: XOR<authTokenUpdateManyMutationInput, authTokenUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type authTokenScalarWhereInput = {
+    AND?: authTokenScalarWhereInput | authTokenScalarWhereInput[]
+    OR?: authTokenScalarWhereInput[]
+    NOT?: authTokenScalarWhereInput | authTokenScalarWhereInput[]
+    id?: IntFilter<"authToken"> | number
+    userId?: IntFilter<"authToken"> | number
+    token?: StringFilter<"authToken"> | string
+    createdAt?: DateTimeFilter<"authToken"> | Date | string
+    expiresAt?: DateTimeFilter<"authToken"> | Date | string
+  }
+
+  export type UserCreateWithoutAuthTokenInput = {
+    name: string
+    email: string
+    password: string
+    phoneNo?: string | null
+    gender: $Enums.gender
+    dob?: Date | string | null
+    address?: string | null
+    city?: string | null
+    state?: string | null
+    pincode?: number | null
+    country?: string | null
+    status?: $Enums.status
+    role: $Enums.role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+  }
+
+  export type UserUncheckedCreateWithoutAuthTokenInput = {
+    id?: number
+    name: string
+    email: string
+    password: string
+    phoneNo?: string | null
+    gender: $Enums.gender
+    dob?: Date | string | null
+    address?: string | null
+    city?: string | null
+    state?: string | null
+    pincode?: number | null
+    country?: string | null
+    status?: $Enums.status
+    role: $Enums.role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+  }
+
+  export type UserCreateOrConnectWithoutAuthTokenInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAuthTokenInput, UserUncheckedCreateWithoutAuthTokenInput>
+  }
+
+  export type UserUpsertWithoutAuthTokenInput = {
+    update: XOR<UserUpdateWithoutAuthTokenInput, UserUncheckedUpdateWithoutAuthTokenInput>
+    create: XOR<UserCreateWithoutAuthTokenInput, UserUncheckedCreateWithoutAuthTokenInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAuthTokenInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAuthTokenInput, UserUncheckedUpdateWithoutAuthTokenInput>
+  }
+
+  export type UserUpdateWithoutAuthTokenInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phoneNo?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: EnumgenderFieldUpdateOperationsInput | $Enums.gender
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableIntFieldUpdateOperationsInput | number | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumstatusFieldUpdateOperationsInput | $Enums.status
+    role?: EnumroleFieldUpdateOperationsInput | $Enums.role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type UserUncheckedUpdateWithoutAuthTokenInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phoneNo?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: EnumgenderFieldUpdateOperationsInput | $Enums.gender
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableIntFieldUpdateOperationsInput | number | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumstatusFieldUpdateOperationsInput | $Enums.status
+    role?: EnumroleFieldUpdateOperationsInput | $Enums.role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type productCreateWithoutCategoryInput = {
@@ -8872,6 +12093,33 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type authTokenCreateManyUserInput = {
+    id?: number
+    token: string
+    createdAt?: Date | string
+    expiresAt: Date | string
+  }
+
+  export type authTokenUpdateWithoutUserInput = {
+    token?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type authTokenUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    token?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type authTokenUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    token?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type productCreateManyCategoryInput = {

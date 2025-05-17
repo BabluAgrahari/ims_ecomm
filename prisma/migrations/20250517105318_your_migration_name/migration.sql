@@ -1,18 +1,38 @@
-/*
-  Warnings:
+-- CreateTable
+CREATE TABLE `users` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(191) NOT NULL,
+    `email` VARCHAR(191) NOT NULL,
+    `password` VARCHAR(191) NOT NULL,
+    `phoneNo` VARCHAR(191) NULL,
+    `gender` ENUM('male', 'female', 'other') NOT NULL,
+    `dob` DATETIME(3) NULL,
+    `address` VARCHAR(191) NULL,
+    `city` VARCHAR(191) NULL,
+    `state` VARCHAR(191) NULL,
+    `pincode` INTEGER NULL,
+    `country` VARCHAR(191) NULL,
+    `status` ENUM('0', '1') NOT NULL DEFAULT '0',
+    `role` ENUM('admin', 'user') NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `deletedAt` DATETIME(3) NULL,
 
-  - You are about to drop the `authtoken` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `users` table. If the table is not empty, all the data it contains will be lost.
+    UNIQUE INDEX `users_email_key`(`email`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-*/
--- DropForeignKey
-ALTER TABLE `authtoken` DROP FOREIGN KEY `AuthToken_userId_fkey`;
+-- CreateTable
+CREATE TABLE `authToken` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `userId` INTEGER NOT NULL,
+    `token` VARCHAR(191) NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `expiresAt` DATETIME(3) NOT NULL,
 
--- DropTable
-DROP TABLE `authtoken`;
-
--- DropTable
-DROP TABLE `users`;
+    UNIQUE INDEX `authToken_token_key`(`token`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `category` (
@@ -86,6 +106,9 @@ CREATE TABLE `productToImage` (
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- AddForeignKey
+ALTER TABLE `authToken` ADD CONSTRAINT `authToken_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `product` ADD CONSTRAINT `product_categoryId_fkey` FOREIGN KEY (`categoryId`) REFERENCES `category`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

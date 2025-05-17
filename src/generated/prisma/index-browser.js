@@ -120,6 +120,34 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  password: 'password',
+  phoneNo: 'phoneNo',
+  gender: 'gender',
+  dob: 'dob',
+  address: 'address',
+  city: 'city',
+  state: 'state',
+  pincode: 'pincode',
+  country: 'country',
+  status: 'status',
+  role: 'role',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.AuthTokenScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  token: 'token',
+  createdAt: 'createdAt',
+  expiresAt: 'expiresAt'
+};
+
 exports.Prisma.CategoryScalarFieldEnum = {
   id: 'id',
   category: 'category',
@@ -188,6 +216,21 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
+exports.Prisma.UserOrderByRelevanceFieldEnum = {
+  name: 'name',
+  email: 'email',
+  password: 'password',
+  phoneNo: 'phoneNo',
+  address: 'address',
+  city: 'city',
+  state: 'state',
+  country: 'country'
+};
+
+exports.Prisma.authTokenOrderByRelevanceFieldEnum = {
+  token: 'token'
+};
+
 exports.Prisma.categoryOrderByRelevanceFieldEnum = {
   category: 'category',
   description: 'description'
@@ -213,12 +256,25 @@ exports.Prisma.productOrderByRelevanceFieldEnum = {
 exports.Prisma.productToImageOrderByRelevanceFieldEnum = {
   image: 'image'
 };
+exports.gender = exports.$Enums.gender = {
+  male: 'male',
+  female: 'female',
+  other: 'other'
+};
+
 exports.status = exports.$Enums.status = {
   inactive: 'inactive',
   active: 'active'
 };
 
+exports.role = exports.$Enums.role = {
+  admin: 'admin',
+  user: 'user'
+};
+
 exports.Prisma.ModelName = {
+  User: 'User',
+  authToken: 'authToken',
   category: 'category',
   brand: 'brand',
   unit: 'unit',

@@ -15,6 +15,50 @@ datasource db {
 }
 
 //for user model
+model User {
+  id        Int         @id @default(autoincrement())
+  name      String
+  email     String      @unique
+  password  String
+  phoneNo   String?
+  gender    gender
+  dob       DateTime?
+  address   String?
+  city      String?
+  state     String?
+  pincode   Int?
+  country   String?
+  status    status      @default(inactive)
+  role      role
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @default(now()) @updatedAt
+  deletedAt DateTime?
+  authToken authToken[]
+
+  @@map("users")
+}
+
+enum gender {
+  male
+  female
+  other
+}
+
+enum role {
+  admin
+  user
+}
+
+model authToken {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  token     String   @unique
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+//for user model
 model category {
   id          Int       @id @default(autoincrement())
   category    String
