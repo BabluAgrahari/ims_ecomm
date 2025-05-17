@@ -1,0 +1,43 @@
+2025-05-16T11:57:20.192Z error: /category: Cannot read properties of undefined (reading 'id')
+2025-05-16T14:00:32.004Z error: /category/status/1: 
+Invalid `prisma.category.update()` invocation:
+
+{
+  where: {
+    id: "1"
+        ~~~
+  },
+  data: {
+    status: "active"
+  }
+}
+
+Argument `id`: Invalid value provided. Expected Int, provided String.
+2025-05-16T14:00:39.014Z error: /category/status/1: 
+Invalid `prisma.category.update()` invocation:
+
+{
+  where: {
+    id: "1"
+        ~~~
+  },
+  data: {
+    status: "active"
+  }
+}
+
+Argument `id`: Invalid value provided. Expected Int, provided String.
+2025-05-16T14:07:02.444Z error: /category/status/1: 
+Invalid `prisma.category.update()` invocation:
+
+{
+  where: {
+    id: "1"
+        ~~~
+  },
+  data: {
+    status: "active"
+  }
+}
+
+Argument `id`: Invalid value provided. Expected Int, provided String.

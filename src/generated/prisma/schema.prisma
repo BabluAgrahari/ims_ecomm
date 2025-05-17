@@ -15,50 +15,73 @@ datasource db {
 }
 
 //for user model
-model User {
-  id        Int         @id @default(autoincrement())
-  name      String
-  email     String      @unique
-  password  String
-  phoneNo   String?
-  gender    Gender
-  dob       DateTime?
-  address   String?
-  city      String?
-  state     String?
-  pincode   Int?
-  country   String?
-  status    Status      @default(inactive)
-  role      Role
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @default(now()) @updatedAt
+model category {
+  id          Int       @id @default(autoincrement())
+  category    String
+  description String?
+  status      status    @default(inactive)
+  userId      Int
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt
+  deletedAt   DateTime?
+  product     product[]
+}
+
+model brand {
+  id          Int       @id @default(autoincrement())
+  brand       String
+  description String?
+  status      status    @default(inactive)
+  userId      Int
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt
+  deletedAt   DateTime?
+  product     product[]
+}
+
+model unit {
+  id        Int       @id @default(autoincrement())
+  unit      String
+  status    status    @default(inactive)
+  userId    Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
   deletedAt DateTime?
-  authToken AuthToken[]
-
-  @@map("users")
+  product   product[]
 }
 
-enum Gender {
-  male
-  female
-  other
+model product {
+  id             Int              @id @default(autoincrement())
+  name           String
+  sku            String
+  description    String?
+  specification  String?
+  categoryId     Int
+  category       category         @relation(fields: [categoryId], references: [id])
+  brandId        Int
+  brand          brand            @relation(fields: [brandId], references: [id])
+  unitId         Int
+  unit           unit             @relation(fields: [unitId], references: [id])
+  thumbnail      String?
+  status         status           @default(inactive)
+  userId         Int
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @default(now()) @updatedAt
+  deletedAt      DateTime?
+  productToImage productToImage[]
 }
 
-enum Role {
-  admin
-  user
+model productToImage {
+  id        Int       @id @default(autoincrement())
+  productId Int
+  product   product   @relation(fields: [productId], references: [id])
+  image     String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+  deletedAt DateTime?
 }
 
-enum Status {
+enum status {
   inactive @map("0")
   active   @map("1")
-}
-
-model AuthToken {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  token     String   @unique
-  createdAt DateTime @default(now())
-  expiresAt DateTime
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

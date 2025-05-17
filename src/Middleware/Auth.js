@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import User from "../Models/user.js";
 import prisma from "../Libraries/Prisma.js";
 
 const auth = async (req, res, next) => {
@@ -20,7 +19,7 @@ const auth = async (req, res, next) => {
     const token = authHeader.replace("Bearer ", "");
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await User.findFirst({
+    const user = await prisma.user.findFirst({
       where: {
         id: decoded.id,
         email: decoded.email,
@@ -55,6 +54,7 @@ const auth = async (req, res, next) => {
       gender: user?.gender,
       dob: user?.dob,
       role: user?.role,
+      status: user?.status,
     };
     req.user = userMod;
     req.token = token;

@@ -15,73 +15,73 @@ datasource db {
 }
 
 //for user model
-model Category {
+model category {
   id          Int       @id @default(autoincrement())
   category    String
   description String?
-  status      Status    @default(inactive)
+  status      status    @default(inactive)
   userId      Int
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @default(now()) @updatedAt
   deletedAt   DateTime?
-  Product     Product[]
+  product     product[]
 }
 
-model Brand {
+model brand {
   id          Int       @id @default(autoincrement())
   brand       String
   description String?
-  status      Status    @default(inactive)
+  status      status    @default(inactive)
   userId      Int
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @default(now()) @updatedAt
   deletedAt   DateTime?
-  Product     Product[]
+  product     product[]
 }
 
-model Unit {
+model unit {
   id        Int       @id @default(autoincrement())
   unit      String
-  status    Status    @default(inactive)
+  status    status    @default(inactive)
   userId    Int
   createdAt DateTime  @default(now())
   updatedAt DateTime  @default(now()) @updatedAt
   deletedAt DateTime?
-  Product   Product[]
+  product   product[]
 }
 
-model Product {
+model product {
   id             Int              @id @default(autoincrement())
   name           String
   sku            String
   description    String?
   specification  String?
   categoryId     Int
-  category       Category         @relation(fields: [categoryId], references: [id])
+  category       category         @relation(fields: [categoryId], references: [id])
   brandId        Int
-  brand          Brand            @relation(fields: [brandId], references: [id])
+  brand          brand            @relation(fields: [brandId], references: [id])
   unitId         Int
-  unit           Unit             @relation(fields: [unitId], references: [id])
+  unit           unit             @relation(fields: [unitId], references: [id])
   thumbnail      String?
-  status         Status           @default(inactive)
+  status         status           @default(inactive)
   userId         Int
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @default(now()) @updatedAt
   deletedAt      DateTime?
-  ProductToImage ProductToImage[]
+  productToImage productToImage[]
 }
 
-model ProductToImage {
+model productToImage {
   id        Int       @id @default(autoincrement())
   productId Int
-  product   Product   @relation(fields: [productId], references: [id])
+  product   product   @relation(fields: [productId], references: [id])
   image     String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @default(now()) @updatedAt
   deletedAt DateTime?
 }
 
-enum Status {
+enum status {
   inactive @map("0")
   active   @map("1")
 }

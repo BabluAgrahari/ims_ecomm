@@ -1,4 +1,4 @@
 import prisma from "../Libraries/Prisma.js";
 
-const Unit = prisma.Unit;
-export default Unit;
+const unit = prisma.unit;
+export default unit;

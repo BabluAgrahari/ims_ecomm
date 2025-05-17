@@ -1,17 +1,16 @@
 import { PERPAGE } from "../config/global.config.js";
 import logger from "../config/logger.config.js";
 import { isEmpty } from "../Helper/Helper.js";
-import User from "../Models/User.js";
+import prisma from "../Libraries/Prisma.js";
 import {
   recordsRes,
   successRes,
   failedRes,
   notFoundRes,
   serverError,
-} from "../Services/Response.js";
-import { Status } from "../generated/prisma/index.js";
+} from "../services/response.js";
+import { status } from "../generated/prisma/index.js";
 import bcrypt from "bcryptjs";
-// const prisma = new PrismaClient();
 
 class UserContoller {
   static list = async (req, res) => {
@@ -20,7 +19,7 @@ class UserContoller {
       const perPage = parseInt(req.query.limit) || PERPAGE;
       const skip = (page - 1) * perPage;
 
-      const users = await User.findMany({
+      const users = await prisma.user.findMany({
         skip,
         take: perPage,
         orderBy: { createdAt: "desc" },
@@ -52,13 +51,13 @@ class UserContoller {
         state: req.body.state,
         country: req.body.country,
         pincode: req.body.pincode,
-        status: req.body.status ? Status.active : Status.inactive,
+        status: req.body.status ? status.active : status.inactive,
         role: req.body.role,
         dob: new Date(req.body.dob),
         gender: req.body.gender,
       };
 
-      const result = await User.create({ data: payload });
+      const result = await prisma.user.create({ data: payload });
       if (result && result.id) {
         return successRes(res, "User Added Successfully!", result);
       } else {

@@ -1,4 +1,4 @@
 import prisma from "../Libraries/Prisma.js";
 
-const Category = prisma.Category;
-export default Category;
+const category = prisma.category;
+export default category;

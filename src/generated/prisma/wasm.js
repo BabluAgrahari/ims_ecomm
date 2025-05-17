@@ -120,32 +120,62 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.UserScalarFieldEnum = {
+exports.Prisma.CategoryScalarFieldEnum = {
   id: 'id',
-  name: 'name',
-  email: 'email',
-  password: 'password',
-  phoneNo: 'phoneNo',
-  gender: 'gender',
-  dob: 'dob',
-  address: 'address',
-  city: 'city',
-  state: 'state',
-  pincode: 'pincode',
-  country: 'country',
+  category: 'category',
+  description: 'description',
   status: 'status',
-  role: 'role',
+  userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
 };
 
-exports.Prisma.AuthTokenScalarFieldEnum = {
+exports.Prisma.BrandScalarFieldEnum = {
   id: 'id',
+  brand: 'brand',
+  description: 'description',
+  status: 'status',
   userId: 'userId',
-  token: 'token',
   createdAt: 'createdAt',
-  expiresAt: 'expiresAt'
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.UnitScalarFieldEnum = {
+  id: 'id',
+  unit: 'unit',
+  status: 'status',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.ProductScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  sku: 'sku',
+  description: 'description',
+  specification: 'specification',
+  categoryId: 'categoryId',
+  brandId: 'brandId',
+  unitId: 'unitId',
+  thumbnail: 'thumbnail',
+  status: 'status',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.ProductToImageScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  image: 'image',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -158,39 +188,42 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
-exports.Prisma.UserOrderByRelevanceFieldEnum = {
+exports.Prisma.categoryOrderByRelevanceFieldEnum = {
+  category: 'category',
+  description: 'description'
+};
+
+exports.Prisma.brandOrderByRelevanceFieldEnum = {
+  brand: 'brand',
+  description: 'description'
+};
+
+exports.Prisma.unitOrderByRelevanceFieldEnum = {
+  unit: 'unit'
+};
+
+exports.Prisma.productOrderByRelevanceFieldEnum = {
   name: 'name',
-  email: 'email',
-  password: 'password',
-  phoneNo: 'phoneNo',
-  address: 'address',
-  city: 'city',
-  state: 'state',
-  country: 'country'
+  sku: 'sku',
+  description: 'description',
+  specification: 'specification',
+  thumbnail: 'thumbnail'
 };
 
-exports.Prisma.AuthTokenOrderByRelevanceFieldEnum = {
-  token: 'token'
+exports.Prisma.productToImageOrderByRelevanceFieldEnum = {
+  image: 'image'
 };
-exports.Gender = exports.$Enums.Gender = {
-  male: 'male',
-  female: 'female',
-  other: 'other'
-};
-
-exports.Status = exports.$Enums.Status = {
+exports.status = exports.$Enums.status = {
   inactive: 'inactive',
   active: 'active'
 };
 
-exports.Role = exports.$Enums.Role = {
-  admin: 'admin',
-  user: 'user'
-};
-
 exports.Prisma.ModelName = {
-  User: 'User',
-  AuthToken: 'AuthToken'
+  category: 'category',
+  brand: 'brand',
+  unit: 'unit',
+  product: 'product',
+  productToImage: 'productToImage'
 };
 
 /**
