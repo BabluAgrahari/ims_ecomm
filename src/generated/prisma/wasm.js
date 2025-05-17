@@ -169,28 +169,28 @@ exports.Prisma.UserOrderByRelevanceFieldEnum = {
   country: 'country'
 };
 
-exports.Prisma.AuthTokenOrderByRelevanceFieldEnum = {
+exports.Prisma.authTokenOrderByRelevanceFieldEnum = {
   token: 'token'
 };
-exports.Gender = exports.$Enums.Gender = {
+exports.gender = exports.$Enums.gender = {
   male: 'male',
   female: 'female',
   other: 'other'
 };
 
-exports.Status = exports.$Enums.Status = {
+exports.status = exports.$Enums.status = {
   inactive: 'inactive',
   active: 'active'
 };
 
-exports.Role = exports.$Enums.Role = {
+exports.role = exports.$Enums.role = {
   admin: 'admin',
   user: 'user'
 };
 
 exports.Prisma.ModelName = {
   User: 'User',
-  AuthToken: 'AuthToken'
+  authToken: 'authToken'
 };
 
 /**

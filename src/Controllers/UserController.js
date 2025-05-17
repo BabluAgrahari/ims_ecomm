@@ -9,7 +9,7 @@ import {
   notFoundRes,
   serverError,
 } from "../services/response.js";
-import { Status } from "../generated/prisma/index.js";
+import { status } from "../generated/prisma/index.js";
 import bcrypt from "bcryptjs";
 // const prisma = new PrismaClient();
 
@@ -52,7 +52,7 @@ class UserContoller {
         state: req.body.state,
         country: req.body.country,
         pincode: req.body.pincode,
-        status: req.body.status ? Status.active : Status.inactive,
+        status: req.body.status ? status.active : status.inactive,
         role: req.body.role,
         dob: new Date(req.body.dob),
         gender: req.body.gender,

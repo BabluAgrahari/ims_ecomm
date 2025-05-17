@@ -1,4 +1,4 @@
 import prisma from "../libraries/prisma.js";
 
-const User = prisma.User;
-export default User;
+const user = prisma.user;
+export default user;

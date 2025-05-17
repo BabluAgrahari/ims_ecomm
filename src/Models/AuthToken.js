@@ -1,4 +1,4 @@
 import prisma from "../libraries/prisma.js";
 
-const AuthToken = prisma.AuthToken;
-export default AuthToken;
+const authToken = prisma.authToken;
+export default authToken;
